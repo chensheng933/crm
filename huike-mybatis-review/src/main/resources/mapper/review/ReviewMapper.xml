@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huike.review.mapper.MybatisReviewMapper">
+
+    <sql id="reviewSQL">
+        SELECT id,name,age,sex,create_by as createBy,create_time as createTime,update_time ,update_user as updateBy FROM `mybatis_review`
+    </sql>
+
+
+    <insert id="saveDataByPojo" parameterType="com.huike.review.pojo.Review">
+        INSERT INTO `mybatis_review` (`name`,`age`,`sex`) VALUES (#{name},#{age},#{sex})
+    </insert>
+
+    <insert id="saveData">
+        INSERT INTO `mybatis_review` (`name`,`age`,`sex`) VALUES (#{name},#{age},#{sex})
+    </insert>
+
+
+    <update id="updateData" parameterType="com.huike.review.pojo.Review">
+        UPDATE `mybatis_review` SET `name` = #{name},age = #{age},sex = #{sex} WHERE id = #{id}
+    </update>
+
+    <delete id="removeData">
+        DELETE FROM `mybatis_review` WHERE id = #{id}
+    </delete>
+
+    <select id="getById" resultType="com.huike.review.pojo.Review" parameterType="Long">
+        <include refid="reviewSQL"></include> WHERE id = #{id}
+    </select>
+    <select id="getDataByPage" resultType="com.huike.review.pojo.Review">
+        <include refid="reviewSQL"></include>
+    </select>
+</mapper>
